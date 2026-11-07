@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lab result envelope (not a scientific verifier)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lab_id",
+    "created_at",
+    "env_report",
+    "claims",
+    "metrics"
+  ],
+  "properties": {
+    "lab_id": {
+      "type": "string",
+      "pattern": "^[0-9]{2}$"
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "env_report": {
+      "type": "object",
+      "required": [
+        "fingerprint",
+        "git_sha",
+        "uv_lock_sha256",
+        "python",
+        "platform",
+        "packages"
+      ],
+      "properties": {
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "git_sha": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "uv_lock_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "python": {
+          "type": "string",
+          "minLength": 1
+        },
+        "platform": {
+          "type": "string",
+          "minLength": 1
+        },
+        "packages": {
+          "type": "object"
+        }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "metrics": {
+      "type": "object"
+    }
+  }
+}

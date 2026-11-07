@@ -1,0 +1,37 @@
+{
+  "checked_at": "2026-10-29",
+  "files": {
+    "conversation": {
+      "filename": "conversation_trace.jsonl",
+      "paper_version": "fast25",
+      "url": "https://raw.githubusercontent.com/kvcache-ai/Mooncake/719735896c86b56fabec6cf3e825fb2ea640597a/FAST25-release/traces/conversation_trace.jsonl",
+      "upstream_commit": "719735896c86b56fabec6cf3e825fb2ea640597a",
+      "size_bytes": 3029533,
+      "sha256": "b8cbb061a85206d729d91cdc2981f43c9e0d99209dce588d3af5f7934408b9df"
+    },
+    "toolagent": {
+      "filename": "toolagent_trace.jsonl",
+      "paper_version": "fast25",
+      "url": "https://raw.githubusercontent.com/kvcache-ai/Mooncake/719735896c86b56fabec6cf3e825fb2ea640597a/FAST25-release/traces/toolagent_trace.jsonl",
+      "upstream_commit": "719735896c86b56fabec6cf3e825fb2ea640597a",
+      "size_bytes": 4415857,
+      "sha256": "48a2db1a13d3bc05e6330140c64f604ba366df20d3c9e128b5c35a01c1fa5f71"
+    },
+    "synthetic": {
+      "filename": "synthetic_trace.jsonl",
+      "paper_version": "fast25",
+      "url": "https://raw.githubusercontent.com/kvcache-ai/Mooncake/719735896c86b56fabec6cf3e825fb2ea640597a/FAST25-release/traces/synthetic_trace.jsonl",
+      "upstream_commit": "719735896c86b56fabec6cf3e825fb2ea640597a",
+      "size_bytes": 1136313,
+      "sha256": "bd070915a98fc0ed264d7cfef2ce746002eb3076a695ec31ba2674c0111ec131"
+    },
+    "arxiv": {
+      "filename": "mooncake_trace.jsonl",
+      "paper_version": "arxiv-v2",
+      "url": "https://raw.githubusercontent.com/kvcache-ai/Mooncake/719735896c86b56fabec6cf3e825fb2ea640597a/FAST25-release/arxiv-trace/mooncake_trace.jsonl",
+      "upstream_commit": "719735896c86b56fabec6cf3e825fb2ea640597a",
+      "size_bytes": 4446104,
+      "sha256": "b434f1816a707f4bac697235588184ebc374c9907cb981bb65fb0643471fe711"
+    }
+  }
+}

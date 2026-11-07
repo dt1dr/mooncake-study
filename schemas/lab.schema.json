@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mooncake study lab manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "track",
+    "paper_topic",
+    "paper_refs",
+    "depends_on",
+    "expected_minutes",
+    "cache_benefit",
+    "claims",
+    "negative_controls",
+    "artifacts",
+    "upstream_refs"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[0-9]{2}$"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]+$"
+    },
+    "track": {
+      "enum": [
+        "portable-cpu",
+        "linux-cpu",
+        "gpu"
+      ]
+    },
+    "paper_topic": {
+      "type": "string",
+      "minLength": 1
+    },
+    "paper_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/paperRef"
+      }
+    },
+    "depends_on": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9]{2}$"
+      }
+    },
+    "expected_minutes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 60
+    },
+    "cache_benefit": {
+      "type": "boolean"
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text",
+          "paper_ref",
+          "hypothesis",
+          "method",
+          "target_level",
+          "status",
+          "observed_level"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]+$"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "paper_ref": {
+            "$ref": "#/$defs/paperRef"
+          },
+          "hypothesis": {
+            "type": "string",
+            "minLength": 1
+          },
+          "method": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target_level": {
+            "enum": [
+              "L0",
+              "L1",
+              "L2",
+              "NR"
+            ]
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "observed",
+              "not-tested"
+            ]
+          },
+          "observed_level": {
+            "enum": [
+              null,
+              "L0",
+              "L1",
+              "L2",
+              "NR"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "observed"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "observed_level": {
+                  "enum": [
+                    "L0",
+                    "L1",
+                    "L2",
+                    "NR"
+                  ]
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "observed_level": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "negative_controls": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^results/"
+      }
+    },
+    "upstream_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "repo",
+          "path",
+          "commit"
+        ],
+        "properties": {
+          "repo": {
+            "type": "string",
+            "minLength": 1
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "commit": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "paperRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "section",
+        "url"
+      ],
+      "properties": {
+        "version": {
+          "enum": [
+            "arxiv-v2",
+            "fast25",
+            "tos2025",
+            "upstream",
+            "study"
+          ]
+        },
+        "section": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://"
+        }
+      }
+    }
+  }
+}

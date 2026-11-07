@@ -1,0 +1,24 @@
+id: "01"
+name: kv-memory
+track: portable-cpu
+paper_topic: kv-memory
+paper_refs:
+  - &paper {version: fast25, section: "2.2; Table 1", url: https://www.usenix.org/system/files/fast25-qin.pdf}
+depends_on: []
+expected_minutes: 1
+cache_benefit: false
+claims:
+  - id: kv-footprint
+    text: Standard MHA/GQA KV bytes follow model dimensions and element size.
+    hypothesis: Integer byte counts match the official calculator for Llama 3.1 8B/70B, varying context, precision, batch size and KV heads.
+    method: Compare eight offline cases with outputs captured from the pinned KVCache.AI calculator; label the MHA variant as a counterfactual.
+    paper_ref: *paper
+    target_level: L2
+    status: observed
+    observed_level: L2
+negative_controls: []
+artifacts: [results/summary.json]
+upstream_refs:
+  - {repo: kvcache-ai/Mooncake, path: README.md, commit: 719735896c86b56fabec6cf3e825fb2ea640597a}
+  - {repo: kvcache-ai/kvcache-blog, path: assets/js/kv-cache-calculator.js, commit: 7d449d1fe1a5419af90c554f222e025dcc3756ba}
+  - {repo: kvcache-ai/kvcache-blog, path: data/kv_cache_calculator/models.yaml, commit: 7d449d1fe1a5419af90c554f222e025dcc3756ba}

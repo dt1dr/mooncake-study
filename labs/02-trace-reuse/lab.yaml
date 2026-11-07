@@ -1,0 +1,33 @@
+id: "02"
+name: trace-reuse
+track: portable-cpu
+paper_topic: prefix-reuse
+paper_refs:
+  - &paper {version: fast25, section: "3.2.1; 5.3", url: https://www.usenix.org/system/files/fast25-qin.pdf}
+depends_on: ["01"]
+expected_minutes: 20
+cache_benefit: true
+claims:
+  - id: prefix-mechanism
+    text: The cache counts only a longest contiguous reusable prefix.
+    hypothesis: Hand traces expose divergent prefixes, LRU refresh, partial tails and capacity eviction.
+    method: Exact per-request hit tokens on six hand traces, using the same leaf-LRU model as official-curve; repeat each under NC1.
+    paper_ref: *paper
+    target_level: L0
+    status: observed
+    observed_level: L0
+  - id: official-curve
+    text: Conversation trace hit tokens match the pinned KVCache.AI simulator's LRU curve.
+    hypothesis: Independent leaf-LRU replay matches the official Python backend at every reported budget.
+    method: Replay the Conversation trace under the conventions in README §5 and compare exact hit tokens, window and denominator with an independently captured official-tool snapshot; repeat under NC1.
+    paper_ref: *paper
+    target_level: L2
+    status: observed
+    observed_level: L2
+negative_controls: [NC1]
+artifacts: [results/summary.json, results/curve.png]
+upstream_refs:
+  - {repo: kvcache-ai/Mooncake, path: FAST25-release/README.md, commit: 719735896c86b56fabec6cf3e825fb2ea640597a}
+  - {repo: kvcache-ai/Mooncake, path: FAST25-release/traces/conversation_trace.jsonl, commit: 719735896c86b56fabec6cf3e825fb2ea640597a}
+  - {repo: kvcache-ai/kvcache-blog, path: packages/kvcache-simulator/src/kvcache_sim/policies.py, commit: 7d449d1fe1a5419af90c554f222e025dcc3756ba}
+  - {repo: kvcache-ai/kvcache-blog, path: packages/kvcache-simulator/src/kvcache_sim/simulator.py, commit: 7d449d1fe1a5419af90c554f222e025dcc3756ba}

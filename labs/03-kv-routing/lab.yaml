@@ -1,0 +1,30 @@
+id: "03"
+name: kv-routing
+track: portable-cpu
+paper_topic: conductor-scheduling
+paper_refs:
+  - &paper {version: fast25, section: "4", url: https://www.usenix.org/system/files/fast25-qin.pdf}
+depends_on: ["02"]
+expected_minutes: 20
+cache_benefit: true
+claims:
+  - id: routing-mechanism
+    text: A simplified cache-aware policy degenerates to least-loaded under NC1.
+    hypothesis: With request-independent blocks, all workers have identical service cost, so both policies reduce to queue wait plus the same tie-break.
+    method: In every scenario and seed, compare complete NC1 worker decisions and TTFT statistics of cache-aware and least-loaded; all policies must have zero NC1 hit tokens.
+    paper_ref: *paper
+    target_level: L0
+    status: observed
+    observed_level: L0
+  - id: routing-trend
+    text: In this simulator, cache-aware routing lowers mean TTFT versus least-loaded when prefixes are shared and one worker's cache cannot hold the hot working set.
+    hypothesis: "Baseline: 2 workers, 120 requests, 4 shared prefixes, 8-block caches, arrival spacing 32, read cost 1. (a) At spacing 24, 32 and 48, cache-aware mean TTFT is lower than least-loaded in every seed. (b) With unique prefixes, zero capacity or read cost equal to compute cost (4), the two are exactly equal in every seed. (c) The seed-averaged gap (least-loaded minus cache-aware) is larger at 4 prefixes than at 2, 8 or 16; larger at capacity 8 than at 4 or 16; and decreases as read cost goes 1, 2, 4."
+    method: "One-factor sweep around the baseline (common/routing.py SCENARIOS) over held-out seeds 200-209; ties go to the least recently assigned worker for every policy. Registered on 2026-10-29 after exploratory runs on seeds 100-109 (and an earlier design on 42-44); those seeds are not evidence."
+    paper_ref: *paper
+    target_level: L1
+    status: observed
+    observed_level: L1
+negative_controls: [NC1]
+artifacts: [results/summary.json, results/sensitivity.png]
+upstream_refs:
+  - {repo: kvcache-ai/Mooncake, path: docs/source/design/conductor/conductor-architecture-design.md, commit: 719735896c86b56fabec6cf3e825fb2ea640597a}

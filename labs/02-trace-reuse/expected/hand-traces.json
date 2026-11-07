@@ -1,0 +1,70 @@
+[
+  {
+    "id": "shared-prefix",
+    "block_size": 4,
+    "capacity_blocks": 3,
+    "requests": [
+      {"timestamp": 0, "input_length": 8, "output_length": 1, "hash_ids": [1, 2]},
+      {"timestamp": 10, "input_length": 12, "output_length": 1, "hash_ids": [1, 2, 3]},
+      {"timestamp": 20, "input_length": 8, "output_length": 1, "hash_ids": [1, 2]}
+    ],
+    "hit_tokens": [0, 8, 8]
+  },
+  {
+    "id": "divergent-prefix",
+    "block_size": 4,
+    "capacity_blocks": 8,
+    "requests": [
+      {"timestamp": 0, "input_length": 12, "output_length": 1, "hash_ids": [1, 2, 3]},
+      {"timestamp": 10, "input_length": 12, "output_length": 1, "hash_ids": [1, 5, 3]},
+      {"timestamp": 20, "input_length": 12, "output_length": 1, "hash_ids": [1, 5, 3]}
+    ],
+    "hit_tokens": [0, 4, 12]
+  },
+  {
+    "id": "lru-refresh",
+    "block_size": 4,
+    "capacity_blocks": 2,
+    "requests": [
+      {"timestamp": 0, "input_length": 4, "output_length": 1, "hash_ids": [1]},
+      {"timestamp": 10, "input_length": 4, "output_length": 1, "hash_ids": [2]},
+      {"timestamp": 20, "input_length": 4, "output_length": 1, "hash_ids": [1]},
+      {"timestamp": 30, "input_length": 4, "output_length": 1, "hash_ids": [3]},
+      {"timestamp": 40, "input_length": 4, "output_length": 1, "hash_ids": [2]},
+      {"timestamp": 50, "input_length": 4, "output_length": 1, "hash_ids": [3]}
+    ],
+    "hit_tokens": [0, 0, 4, 0, 0, 4]
+  },
+  {
+    "id": "partial-tail",
+    "block_size": 4,
+    "capacity_blocks": 4,
+    "requests": [
+      {"timestamp": 0, "input_length": 6, "output_length": 1, "hash_ids": [1, 2]},
+      {"timestamp": 10, "input_length": 6, "output_length": 1, "hash_ids": [1, 2]},
+      {"timestamp": 20, "input_length": 3, "output_length": 1, "hash_ids": [1]}
+    ],
+    "hit_tokens": [0, 6, 3]
+  },
+  {
+    "id": "request-exceeds-cache",
+    "block_size": 4,
+    "capacity_blocks": 2,
+    "requests": [
+      {"timestamp": 0, "input_length": 12, "output_length": 1, "hash_ids": [1, 2, 3]},
+      {"timestamp": 10, "input_length": 12, "output_length": 1, "hash_ids": [1, 2, 3]},
+      {"timestamp": 20, "input_length": 8, "output_length": 1, "hash_ids": [1, 2]}
+    ],
+    "hit_tokens": [0, 4, 4]
+  },
+  {
+    "id": "zero-capacity",
+    "block_size": 4,
+    "capacity_blocks": 0,
+    "requests": [
+      {"timestamp": 0, "input_length": 4, "output_length": 1, "hash_ids": [1]},
+      {"timestamp": 10, "input_length": 4, "output_length": 1, "hash_ids": [1]}
+    ],
+    "hit_tokens": [0, 0]
+  }
+]

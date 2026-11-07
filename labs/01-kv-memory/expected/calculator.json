@@ -1,0 +1,92 @@
+{
+  "models": {
+    "llama-3.1-8b": {
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "head_dim": 128
+    },
+    "llama-3.1-70b": {
+      "num_hidden_layers": 80,
+      "num_attention_heads": 64,
+      "num_key_value_heads": 8,
+      "head_dim": 128
+    }
+  },
+  "cases": [
+    {
+      "id": "70b-8k-bf16",
+      "model": "llama-3.1-70b",
+      "tokens": 8192,
+      "bytes_per_element": 2,
+      "batch_size": 1,
+      "overrides": {},
+      "total_bytes": 2684354560
+    },
+    {
+      "id": "70b-32k-bf16",
+      "model": "llama-3.1-70b",
+      "tokens": 32768,
+      "bytes_per_element": 2,
+      "batch_size": 1,
+      "overrides": {},
+      "total_bytes": 10737418240
+    },
+    {
+      "id": "70b-128000-bf16",
+      "model": "llama-3.1-70b",
+      "tokens": 128000,
+      "bytes_per_element": 2,
+      "batch_size": 1,
+      "overrides": {},
+      "total_bytes": 41943040000
+    },
+    {
+      "id": "70b-128k-bf16",
+      "model": "llama-3.1-70b",
+      "tokens": 131072,
+      "bytes_per_element": 2,
+      "batch_size": 1,
+      "overrides": {},
+      "total_bytes": 42949672960
+    },
+    {
+      "id": "8b-128k-bf16",
+      "model": "llama-3.1-8b",
+      "tokens": 131072,
+      "bytes_per_element": 2,
+      "batch_size": 1,
+      "overrides": {},
+      "total_bytes": 17179869184
+    },
+    {
+      "id": "70b-128k-int8",
+      "model": "llama-3.1-70b",
+      "tokens": 131072,
+      "bytes_per_element": 1,
+      "batch_size": 1,
+      "overrides": {},
+      "total_bytes": 21474836480
+    },
+    {
+      "id": "70b-128k-batch2",
+      "model": "llama-3.1-70b",
+      "tokens": 131072,
+      "bytes_per_element": 2,
+      "batch_size": 2,
+      "overrides": {},
+      "total_bytes": 85899345920
+    },
+    {
+      "id": "70b-128k-mha-counterfactual",
+      "model": "llama-3.1-70b",
+      "tokens": 131072,
+      "bytes_per_element": 2,
+      "batch_size": 1,
+      "overrides": {
+        "num_key_value_heads": 64
+      },
+      "total_bytes": 343597383680
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+[project]
+name = "mooncake-study"
+version = "0.1.0"
+description = "Paper-to-code learning labs for Mooncake with explicit reproducibility boundaries"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "jsonschema>=4.26.0",
+    "matplotlib>=3.11.2",
+    "pyyaml>=6.0.3",
+]
+
+[dependency-groups]
+dev = ["pytest>=9.2.0", "ruff>=0.17.3"]
+mooncake = [
+  "mooncake-transfer-engine-non-cuda==0.3.13.post1; sys_platform == 'linux' and platform_machine == 'x86_64'",
+]
+
+[tool.uv]
+package = false
+default-groups = ["dev"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = [".venv-*", ".pixi", "artifacts", "data/raw", "**/results"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "labs"]
+pythonpath = ["."]
+addopts = "-ra --strict-markers --import-mode=importlib -m 'not integration'"
+markers = ["integration: requires the optional Linux Mooncake wheel; no remote services"]

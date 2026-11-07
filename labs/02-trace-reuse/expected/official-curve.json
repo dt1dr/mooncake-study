@@ -1,0 +1,88 @@
+{
+  "trace": "conversation",
+  "model": "llama-3.1-70b",
+  "precision": "bf16_fp16",
+  "block_size": 512,
+  "bytes_per_token": 327680,
+  "warmup_fraction": 0.5,
+  "budgets_gib": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64,
+    128,
+    256,
+    512,
+    1024,
+    2048,
+    4096,
+    8192,
+    16384
+  ],
+  "expected": {
+    "request_count": 12031,
+    "warmup_requests": 6015,
+    "total_tokens": 67915607,
+    "points": [
+      {
+        "gib": 1,
+        "hit_tokens": 3080192
+      },
+      {
+        "gib": 2,
+        "hit_tokens": 3080192
+      },
+      {
+        "gib": 4,
+        "hit_tokens": 3080192
+      },
+      {
+        "gib": 8,
+        "hit_tokens": 3080192
+      },
+      {
+        "gib": 16,
+        "hit_tokens": 3080581
+      },
+      {
+        "gib": 32,
+        "hit_tokens": 3082824
+      },
+      {
+        "gib": 64,
+        "hit_tokens": 3085579
+      },
+      {
+        "gib": 128,
+        "hit_tokens": 3157446
+      },
+      {
+        "gib": 256,
+        "hit_tokens": 3532794
+      },
+      {
+        "gib": 512,
+        "hit_tokens": 4955971
+      },
+      {
+        "gib": 1024,
+        "hit_tokens": 10394228
+      },
+      {
+        "gib": 2048,
+        "hit_tokens": 16995095
+      },
+      {
+        "gib": 4096,
+        "hit_tokens": 22411828
+      },
+      {
+        "gib": 8192,
+        "hit_tokens": 25671028
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+id: "04"
+name: mooncake-store
+track: linux-cpu
+paper_topic: store-api
+paper_refs:
+  - &paper {version: fast25, section: "3.2.2", url: https://www.usenix.org/system/files/fast25-qin.pdf}
+depends_on: []
+expected_minutes: 30
+cache_benefit: false
+claims:
+  - id: tcp-store
+    text: The pinned Store API transfers byte objects between processes over TCP.
+    hypothesis: Separate producer and consumer retrieve identical seeded bytes with TCP evidence.
+    method: Start an isolated master; sole writer owns a 64 MiB segment, reader mounts none. Compare 1 MiB seeded bytes in separate processes, record Linux TCP_INFO received bytes on the writer data port, close writer and require missing data, reject an unused master address with a native master-client error, reap all processes.
+    paper_ref: *paper
+    target_level: L0
+    status: observed
+    observed_level: L0
+negative_controls: []
+artifacts: [results/summary.json, results/master.log, results/writer.log, results/reader.log, results/after.log, results/invalid.log]
+upstream_refs:
+  - {repo: kvcache-ai/Mooncake, path: mooncake-wheel/tests/test_distributed_object_store.py, commit: 719735896c86b56fabec6cf3e825fb2ea640597a}
+  - {repo: kvcache-ai/Mooncake, path: mooncake-transfer-engine/src/transport/tcp_transport/tcp_transport.cpp, commit: 719735896c86b56fabec6cf3e825fb2ea640597a}
+  - {repo: kvcache-ai/Mooncake, path: mooncake-store/src/transfer_task.cpp, commit: 719735896c86b56fabec6cf3e825fb2ea640597a}
+  - {repo: kvcache-ai/Mooncake, path: mooncake-store/src/real_client.cpp, commit: 719735896c86b56fabec6cf3e825fb2ea640597a}
