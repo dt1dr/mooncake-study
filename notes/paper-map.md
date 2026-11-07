@@ -1,7 +1,7 @@
 # Paper → source → lab map
 
 Observed levels below were accepted by each lab's verifier on results produced at commit
-`adfd9db` (Python 3.13.17, WSL2 x86_64). Source snapshot:
+`3dffadd` (Python 3.13.17, WSL2 x86_64). Source snapshot:
 [`v0.3.13.post1`, `719735896c86b56fabec6cf3e825fb2ea640597a`](https://github.com/kvcache-ai/Mooncake/tree/719735896c86b56fabec6cf3e825fb2ea640597a).
 This is the official release tag, cut on a short post-release line from `main`, so it is
 not an ancestor of `main`; it matches the pinned 0.3.13.post1 wheel.
